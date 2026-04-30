@@ -2,7 +2,7 @@ import { Suspense, lazy } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Layout from './components/Layout.jsx'
-import PageLoader from './components/PageLoader.jsx'
+import PageLoader, { RouteSkeleton } from './components/PageLoader.jsx'
 
 const HomePage = lazy(() => import('./pages/HomePage.jsx'))
 const AIPage = lazy(() => import('./pages/AIPage.jsx'))
@@ -22,14 +22,70 @@ function App() {
       <Suspense fallback={<PageLoader label="Loading OrbitWeb experience..." />}>
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/ai" element={<AIPage />} />
-            <Route path="/future-tech" element={<FutureTechPage />} />
-            <Route path="/blog" element={<BlogPage />} />
-            <Route path="/blog/:id" element={<BlogPostPage />} />
-            <Route path="/guides" element={<GuidesPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/contact" element={<ContactPage />} />
+            <Route
+              path="/"
+              element={
+                <Suspense fallback={<RouteSkeleton title="Loading home dashboard..." />}>
+                  <HomePage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/ai"
+              element={
+                <Suspense fallback={<RouteSkeleton title="Loading AI hub..." />}>
+                  <AIPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/future-tech"
+              element={
+                <Suspense fallback={<RouteSkeleton title="Loading future technology..." />}>
+                  <FutureTechPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/blog"
+              element={
+                <Suspense fallback={<RouteSkeleton title="Loading blog..." />}>
+                  <BlogPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/blog/:id"
+              element={
+                <Suspense fallback={<RouteSkeleton title="Loading article..." />}>
+                  <BlogPostPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/guides"
+              element={
+                <Suspense fallback={<RouteSkeleton title="Loading guides..." />}>
+                  <GuidesPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/about"
+              element={
+                <Suspense fallback={<RouteSkeleton title="Loading about page..." />}>
+                  <AboutPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/contact"
+              element={
+                <Suspense fallback={<RouteSkeleton title="Loading contact page..." />}>
+                  <ContactPage />
+                </Suspense>
+              }
+            />
             <Route path="/home" element={<Navigate to="/" replace />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

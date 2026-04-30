@@ -17,17 +17,36 @@ export function DataProvider({ children }) {
   }, [searchTerm])
 
   const getNews = async () => {
+    const fallback = [
+      { title: 'Local fallback: Edge AI chips surge', summary: 'On-device intelligence pushes privacy-first apps.' },
+      { title: 'Local fallback: Green compute trend', summary: 'Efficient model architectures reduce energy usage.' },
+      { title: 'Local fallback: Robotics cloud twins', summary: 'Simulation-first robotics cuts prototyping costs.' },
+      { title: 'Local fallback: Space data platforms', summary: 'Satellite data APIs enable near-real-time analytics.' },
+      { title: 'Local fallback: Smart city pilots', summary: 'Urban sensors optimize mobility and energy balancing.' },
+    ]
+
+    const key = import.meta.env.VITE_NEWS_API_KEY
+    if (!key) return fallback
+
     try {
-      const { data } = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5')
-      return data.map((item) => ({
+      const { data } = await axios.get('https://newsapi.org/v2/everything', {
+        params: {
+          q: 'AI OR robotics OR future technology',
+          pageSize: 5,
+          language: 'en',
+          sortBy: 'publishedAt',
+          apiKey: key,
+        },
+      })
+
+      if (!data?.articles?.length) return fallback
+
+      return data.articles.map((item) => ({
         title: item.title,
-        summary: item.body,
+        summary: item.description || 'No summary provided by source.',
       }))
     } catch {
-      return [
-        { title: 'Local fallback: Edge AI chips surge', summary: 'On-device intelligence pushes privacy-first apps.' },
-        { title: 'Local fallback: Green compute trend', summary: 'Efficient model architectures reduce energy usage.' },
-      ]
+      return fallback
     }
   }
 

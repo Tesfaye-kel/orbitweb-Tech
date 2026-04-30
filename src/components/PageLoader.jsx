@@ -11,4 +11,17 @@ function PageLoader({ label = 'Loading...' }) {
   )
 }
 
+export function RouteSkeleton({ title = 'Loading section...' }) {
+  return (
+    <div className="section-shell space-y-4">
+      <div className="glass-card h-28 animate-pulse" />
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="glass-card h-40 animate-pulse" />
+        <div className="glass-card h-40 animate-pulse" />
+      </div>
+      <p className="text-sm text-cyan-300">{title}</p>
+    </div>
+  )
+}
+
 export default PageLoader

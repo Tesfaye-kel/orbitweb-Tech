@@ -11,6 +11,19 @@ const thoughtList = [
   'Every future breakthrough starts as a prototype today.',
   'Curiosity is still the most powerful tech stack.',
 ]
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+}
+const staggerItem = {
+  hidden: { opacity: 0, y: 12 },
+  show: { opacity: 1, y: 0 },
+}
 
 function HomePage() {
   const [time, setTime] = useState(new Date())
@@ -65,36 +78,46 @@ function HomePage() {
 
       <section className="section-shell pt-0">
         <h2 className="mb-4 text-2xl font-semibold text-white">Highlight Topics</h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <motion.div
+          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+        >
           {topics.map((topic, index) => (
             <motion.article
               key={topic}
-              whileInView={{ opacity: 1, y: 0 }}
-              initial={{ opacity: 0, y: 20 }}
-              viewport={{ once: true }}
+              variants={staggerItem}
               transition={{ delay: index * 0.08 }}
               className="glass-card animate-pulseGlow text-center font-semibold text-cyan-200"
             >
               {topic}
             </motion.article>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       <section className="section-shell pt-0">
         <h2 className="mb-4 text-2xl font-semibold text-white">Latest Featured Articles</h2>
-        <div className="grid gap-4 md:grid-cols-3">
+        <motion.div
+          className="grid gap-4 md:grid-cols-3"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+        >
           {featured.map((post) => (
-            <article key={post.id} className="glass-card">
+            <motion.article key={post.id} variants={staggerItem} className="glass-card">
               <p className="text-xs uppercase tracking-widest text-cyan-300">{post.category}</p>
               <h3 className="mt-2 text-lg font-semibold text-white">{post.title}</h3>
               <p className="mt-2 text-sm text-slate-300">{post.summary}</p>
               <Link to={`/blog/${post.id}`} className="mt-4 inline-block text-sm font-semibold text-cyan-300">
                 Read article
               </Link>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       <section className="section-shell pt-0">

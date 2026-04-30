@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import PageWrap from '../components/PageWrap.jsx'
+import AnimatedCounter from '../components/AnimatedCounter.jsx'
 
 const team = [
   { name: 'Nova Reid', role: 'AI Editor' },
@@ -42,9 +43,12 @@ function AboutPage() {
               whileInView={{ opacity: 1, y: 0 }}
               initial={{ opacity: 0, y: 14 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.35 }}
               className="glass-card text-center"
             >
-              <p className="text-3xl font-black text-cyan-300">{stat.value.toLocaleString()}+</p>
+              <p className="text-3xl font-black text-cyan-300">
+                <AnimatedCounter value={stat.value} />
+              </p>
               <p className="mt-1 text-sm text-slate-300">{stat.label}</p>
             </motion.article>
           ))}
