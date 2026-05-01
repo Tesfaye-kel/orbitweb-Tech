@@ -23,10 +23,12 @@ function AnimatedCounter({ value, duration = 1200 }) {
   useEffect(() => {
     if (!started) return
     const start = performance.now()
+    const easeOutCubic = (x) => 1 - (1 - x) ** 3
 
     const tick = (now) => {
       const progress = Math.min((now - start) / duration, 1)
-      setCount(Math.floor(progress * value))
+      const eased = easeOutCubic(progress)
+      setCount(Math.floor(eased * value))
       if (progress < 1) requestAnimationFrame(tick)
     }
 
