@@ -20,7 +20,7 @@ function App() {
   return (
     <Layout>
       <Suspense fallback={<PageLoader label="Loading OrbitWeb experience..." />}>
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" initial={false}>
           <Routes location={location} key={location.pathname}>
             <Route
               path="/"

@@ -14,11 +14,20 @@
     font-family: Inter, Segoe UI, Roboto, sans-serif;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   .dark body {
     @apply bg-orbit-bg text-slate-100;
     background-image:
       radial-gradient(circle at 5% 5%, rgba(85, 182, 255, 0.2), transparent 30%),
       radial-gradient(circle at 85% 0%, rgba(168, 85, 247, 0.2), transparent 35%);
+  }
+
+  img {
+    backface-visibility: hidden;
+    transform: translateZ(0);
   }
 }
 

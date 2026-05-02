@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { posts } from '../data/posts.js'
 import PageWrap from '../components/PageWrap.jsx'
@@ -11,8 +11,6 @@ const thoughtList = [
   'Every future breakthrough starts as a prototype today.',
   'Curiosity is still the most powerful tech stack.',
 ]
-const roboticsHeroImage =
-  'https://images.unsplash.com/photo-1581092921461-39b9d08a9b2a?auto=format&fit=crop&w=1600&q=80'
 const staggerContainer = {
   hidden: { opacity: 0 },
   show: {
@@ -32,14 +30,18 @@ function HomePage() {
   const [thoughtIndex, setThoughtIndex] = useState(0)
   const [news, setNews] = useState([])
   const [loadingNews, setLoadingNews] = useState(true)
-  const [parallax, setParallax] = useState({ x: 0, y: 0 })
   const { getNews } = useData()
   const bannerRef = useRef(null)
   const { scrollYProgress } = useScroll({
     target: bannerRef,
     offset: ['start end', 'end start'],
   })
+  const pointerX = useMotionValue(0)
+  const pointerY = useMotionValue(0)
+  const lagX = useSpring(pointerX, { stiffness: 90, damping: 22, mass: 0.7 })
+  const lagY = useSpring(pointerY, { stiffness: 90, damping: 22, mass: 0.7 })
   const scrollParallaxY = useTransform(scrollYProgress, [0, 1], [-22, 22])
+  const smoothParallaxY = useTransform(() => scrollParallaxY.get() + lagY.get())
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.55, 0.7, 0.55])
 
   useEffect(() => {
@@ -74,7 +76,8 @@ function HomePage() {
     const bounds = event.currentTarget.getBoundingClientRect()
     const x = (event.clientX - bounds.left) / bounds.width - 0.5
     const y = (event.clientY - bounds.top) / bounds.height - 0.5
-    setParallax({ x: x * 14, y: y * 14 })
+    pointerX.set(x * 14)
+    pointerY.set(y * 14)
   }
 
   return (
@@ -110,18 +113,18 @@ function HomePage() {
           ref={bannerRef}
           className="relative overflow-hidden rounded-2xl border border-orbit-line"
           onMouseMove={handleBannerMove}
-          onMouseLeave={() => setParallax({ x: 0, y: 0 })}
+          onMouseLeave={() => {
+            pointerX.set(0)
+            pointerY.set(0)
+          }}
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: 'easeInOut' }}
           viewport={{ once: true }}
         >
-          <motion.img
-            src={roboticsHeroImage}
-            alt="Modern robotics lab"
-            className="h-[300px] w-full object-cover sm:h-[360px]"
-            style={{ y: scrollParallaxY }}
-            animate={{ x: parallax.x, y: parallax.y, scale: 1.06 }}
-            transition={{ type: 'spring', stiffness: 120, damping: 20 }}
+          <motion.div
+            className="h-[300px] w-full bg-gradient-to-r from-slate-950 via-slate-900 to-slate-800 sm:h-[360px]"
+            style={{ x: lagX, y: smoothParallaxY, scale: 1.06, willChange: 'transform' }}
           />
           <motion.div
             className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-900/65 to-transparent"
@@ -137,49 +140,55 @@ function HomePage() {
             animate={{ y: [0, 8, 0], x: [0, -8, 0], scale: [1, 1.1, 1] }}
             transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
           />
-          <div className="absolute inset-0 flex max-w-2xl flex-col justify-center p-6 sm:p-10">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Robotics Frontier</p>
-            <motion.h2
-              className="mt-2 text-3xl font-black leading-tight text-white sm:text-4xl"
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15 }}
+          <div className="absolute inset-0 flex items-center justify-between gap-6 p-6 sm:p-10">
+            <div className="max-w-2xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">Robotics Frontier</p>
+              <motion.h2
+                className="mt-2 text-3xl font-black leading-tight text-white sm:text-4xl"
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 }}
+                viewport={{ once: true }}
+              >
+                Modern Robotics Is Rewriting Industry, Healthcare, and Daily Life
+              </motion.h2>
+              <motion.div
+                className="mt-3 inline-flex w-fit items-center gap-2 rounded-full border border-cyan-300/40 bg-slate-900/50 px-3 py-1 text-xs text-cyan-100"
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                <span className="inline-block h-2 w-2 rounded-full bg-cyan-300" />
+                Live signal: robotics momentum rising
+              </motion.div>
+              <motion.p
+                className="mt-3 text-sm text-slate-200 sm:text-base"
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.28 }}
+                viewport={{ once: true }}
+              >
+                Explore autonomous systems, intelligent sensors, and real-world robots shaping tomorrow.
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.38 }}
+                viewport={{ once: true }}
+              >
+                <Link to="/future-tech" className="orbit-btn-primary mt-5 w-fit">
+                  Explore Future Tech
+                </Link>
+              </motion.div>
+            </div>
+            <motion.img
+              src="https://images.pexels.com/photos/8566531/pexels-photo-8566531.jpeg?cs=srgb&dl=pexels-kindelmedia-8566531.jpg&fm=jpg"
+              alt="Large robot visual"
+              className="hidden h-40 w-40 rounded-2xl border border-cyan-300/35 bg-slate-900/50 object-cover shadow-[0_0_35px_rgba(34,211,238,0.35)] sm:block md:h-52 md:w-52"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.35, duration: 0.5 }}
               viewport={{ once: true }}
-            >
-              Modern Robotics Is Rewriting Industry, Healthcare, and Daily Life
-            </motion.h2>
-            <motion.div
-              className="mt-3 inline-flex w-fit items-center gap-2 rounded-full border border-cyan-300/40 bg-slate-900/50 px-3 py-1 text-xs text-cyan-100"
-              animate={{ y: [0, -5, 0] }}
-              transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-            >
-              <span className="inline-block h-2 w-2 rounded-full bg-cyan-300" />
-              Live signal: robotics momentum rising
-              <img
-                src="https://images.pexels.com/photos/8566531/pexels-photo-8566531.jpeg?cs=srgb&dl=pexels-kindelmedia-8566531.jpg&fm=jpg"
-                alt="Robot"
-                className="h-4 w-4 rounded-sm object-cover"
-              />
-            </motion.div>
-            <motion.p
-              className="mt-3 text-sm text-slate-200 sm:text-base"
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.28 }}
-              viewport={{ once: true }}
-            >
-              Explore autonomous systems, intelligent sensors, and real-world robots shaping tomorrow.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.38 }}
-              viewport={{ once: true }}
-            >
-              <Link to="/future-tech" className="orbit-btn-primary mt-5 w-fit">
-                Explore Future Tech
-              </Link>
-            </motion.div>
+            />
           </div>
         </motion.div>
       </section>
