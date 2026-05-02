@@ -155,6 +155,11 @@ function HomePage() {
             >
               <span className="inline-block h-2 w-2 rounded-full bg-cyan-300" />
               Live signal: robotics momentum rising
+              <img
+                src="https://images.pexels.com/photos/8566531/pexels-photo-8566531.jpeg?cs=srgb&dl=pexels-kindelmedia-8566531.jpg&fm=jpg"
+                alt="Robot"
+                className="h-4 w-4 rounded-sm object-cover"
+              />
             </motion.div>
             <motion.p
               className="mt-3 text-sm text-slate-200 sm:text-base"
