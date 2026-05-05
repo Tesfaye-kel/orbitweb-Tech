@@ -1,4 +1,5 @@
 import { futureTechSections, predictionTimeline } from '../data/futureTechData.js'
+import { Link } from 'react-router-dom'
 import PageWrap from '../components/PageWrap.jsx'
 
 function FutureTechPage() {
@@ -21,9 +22,9 @@ function FutureTechPage() {
                     <div className="p-4">
                       <h3 className="font-semibold text-white">{card.title}</h3>
                       <p className="mt-2 text-sm text-slate-300">{card.description}</p>
-                      <button type="button" className="mt-3 text-sm font-semibold text-cyan-300">
+                      <Link to="/guides" className="mt-3 inline-block text-sm font-semibold text-cyan-300">
                         Read more
-                      </button>
+                      </Link>
                     </div>
                   </article>
                 ))}
