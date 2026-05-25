@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { FaAngleDown, FaBars, FaMoon, FaSearch, FaSun, FaTimes } from 'react-icons/fa'
+import { FaBars, FaMoon, FaSearch, FaSun, FaTimes } from 'react-icons/fa'
 import { useTheme } from '../context/ThemeContext.jsx'
 import { useData } from '../context/DataContext.jsx'
 
@@ -37,21 +37,16 @@ function Navbar() {
                 className={({ isActive }) =>
                   `rounded-full px-3 py-2 text-sm transition ${isActive ? 'bg-cyan-400/20 text-cyan-300' : 'text-slate-200 hover:bg-white/10'}`
                 }
-                onClick={() => {
+                onClick={(e) => {
+                  // Keep navigation to /future-tech while also toggling the dropdown.
+                  // If dropdown is open and user clicks Explore again, close it.
+                  e.preventDefault()
                   setOpen(false)
-                  setShowDropdown(false)
+                  setShowDropdown((prev) => !prev)
                 }}
               >
                 Explore
               </NavLink>
-              <button
-                className="rounded-full px-2 py-2 text-xs text-slate-200 hover:bg-white/10"
-                type="button"
-                onClick={() => setShowDropdown((prev) => !prev)}
-                aria-label="Toggle explore menu"
-              >
-                <FaAngleDown />
-              </button>
               {showDropdown && (
                 <div className="absolute left-0 top-11 z-50 min-w-44 rounded-xl border border-orbit-line bg-slate-900/95 p-2 shadow-glass">
                   <NavLink to="/ai" className={navItemClass} onClick={() => setShowDropdown(false)}>
