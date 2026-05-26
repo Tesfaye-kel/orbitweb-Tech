@@ -1,0 +1,55 @@
+# =========================================================
+# GitHub Actions - Continuous Integration (CI) Workflow
+# =========================================================
+
+name: CI Pipeline
+
+# ---------------------------------------------------------
+# Workflow Triggers
+# ---------------------------------------------------------
+on:
+  # Run workflow when code is pushed to the main branch
+  push:
+    branches:
+      - main
+
+  # Run workflow for pull requests targeting main branch
+  pull_request:
+    branches:
+      - main
+
+  # Allow manual workflow execution from GitHub Actions tab
+  workflow_dispatch:
+
+# ---------------------------------------------------------
+# Jobs
+# ---------------------------------------------------------
+jobs:
+
+  # =======================================================
+  # Build Job
+  # =======================================================
+  build:
+
+    # Runner Environment
+    runs-on: ubuntu-latest
+
+    # -----------------------------------------------------
+    # Steps
+    # -----------------------------------------------------
+    steps:
+
+      # Step 1: Checkout Repository Code
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2: Display Welcome Message
+      - name: Run One-Line Script
+        run: echo "Hello, World!"
+
+      # Step 3: Run Multi-Line Commands
+      - name: Run Multi-Line Script
+        run: |
+          echo "Add other actions to build,"
+          echo "test, and deploy your project."
+          echo "CI pipeline executed successfully!"
