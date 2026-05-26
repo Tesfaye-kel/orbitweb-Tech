@@ -1,8 +1,30 @@
-const placeholder = 'https://placehold.co/900x600/101827/5eead4?text=OrbitWeb+Tech'
-const roboticsImage = 'https://images.unsplash.com/photo-1581092921461-39b9d08a9b2a?auto=format&fit=crop&w=1400&q=80'
-const spaceImage = 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1400&q=80'
-const cityImage = 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1400&q=80'
-const gadgetImage = 'https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&w=1400&q=80'
+import roboticsImg from '../assets/Autonomous Warehouse Fleet.jpg'
+import surgeryImg from '../assets/Surgical Microrobots.jpg'
+import assistImg from '../assets/Domestic Assist Bots.jpg'
+
+import launchImg from '../assets/Pocket Quantum Sensors.jpg'
+import lunarImg from '../assets/Net-Zero Districts.jpg'
+import orbitalImg from '../assets/Urban Digital Twins.jpg'
+
+import trafficImg from '../assets/Adaptive Traffic Grids,jpg.jpg'
+import netzeroImg from '../assets/Net-Zero Districts.jpg'
+import twinsImg from '../assets/Urban Digital Twins.jpg'
+
+import arImg from '../assets/Ambient AR Lenses.jpg'
+import wearableImg from '../assets/Neural Wearables.jpg'
+import sensorsImg from '../assets/Pocket Quantum Sensors.jpg'
+
+import osImg from '../assets/Personal AI Operating Systems.jpg'
+import securityImg from '../assets/Autonomous Security Layers.jpg'
+import researchImg from '../assets/Synthetic Research Assistants.jpg'
+
+// (legacy constants kept for backward-compat)
+const placeholder = osImg
+const roboticsImage = roboticsImg
+const spaceImage = launchImg
+const cityImage = trafficImg
+const gadgetImage = arImg
+
 
 export const futureTechSections = [
   {
@@ -10,44 +32,44 @@ export const futureTechSections = [
     title: 'Robotics',
     cards: [
       { title: 'Autonomous Warehouse Fleet', description: 'Swarm robots improve logistics throughput and accuracy.', image: roboticsImage },
-      { title: 'Surgical Microrobots', description: 'Precision robotics is reducing invasive procedures in healthcare.', image: roboticsImage },
-      { title: 'Domestic Assist Bots', description: 'Multimodal assistants are entering eldercare and home support.', image: roboticsImage },
+      { title: 'Surgical Microrobots', description: 'Precision robotics is reducing invasive procedures in healthcare.', image: surgeryImg },
+      { title: 'Domestic Assist Bots', description: 'Multimodal assistants are entering eldercare and home support.', image: assistImg },
     ],
   },
   {
     id: 'space-tech',
     title: 'Space Tech',
     cards: [
-      { title: 'Reusable Launch Systems', description: 'Launch costs drop as turnaround times tighten.', image: spaceImage },
-      { title: 'Lunar Infrastructure', description: 'Power and habitat prototypes push Moon missions forward.', image: spaceImage },
-      { title: 'Orbital Manufacturing', description: 'Microgravity creates new opportunities for advanced materials.', image: spaceImage },
+      { title: 'Reusable Launch Systems', description: 'Launch costs drop as turnaround times tighten.', image: launchImg },
+      { title: 'Lunar Infrastructure', description: 'Power and habitat prototypes push Moon missions forward.', image: lunarImg },
+      { title: 'Orbital Manufacturing', description: 'Microgravity creates new opportunities for advanced materials.', image: orbitalImg },
     ],
   },
   {
     id: 'smart-cities',
     title: 'Smart Cities',
     cards: [
-      { title: 'Adaptive Traffic Grids', description: 'Signals coordinate with real-time traffic intelligence.', image: cityImage },
-      { title: 'Net-Zero Districts', description: 'AI-managed power balancing cuts urban emissions.', image: cityImage },
-      { title: 'Urban Digital Twins', description: 'City planning decisions are tested in simulation first.', image: cityImage },
+      { title: 'Adaptive Traffic Grids', description: 'Signals coordinate with real-time traffic intelligence.', image: trafficImg },
+      { title: 'Net-Zero Districts', description: 'AI-managed power balancing cuts urban emissions.', image: netzeroImg },
+      { title: 'Urban Digital Twins', description: 'City planning decisions are tested in simulation first.', image: twinsImg },
     ],
   },
   {
     id: 'future-gadgets',
     title: 'Future Gadgets',
     cards: [
-      { title: 'Ambient AR Lenses', description: 'Context-aware overlays blend digital and physical worlds.', image: gadgetImage },
-      { title: 'Neural Wearables', description: 'Non-invasive brain interfaces unlock new assistive controls.', image: gadgetImage },
-      { title: 'Pocket Quantum Sensors', description: 'Tiny sensors improve medical and geospatial diagnostics.', image: gadgetImage },
+      { title: 'Ambient AR Lenses', description: 'Context-aware overlays blend digital and physical worlds.', image: arImg },
+      { title: 'Neural Wearables', description: 'Non-invasive brain interfaces unlock new assistive controls.', image: wearableImg },
+      { title: 'Pocket Quantum Sensors', description: 'Tiny sensors improve medical and geospatial diagnostics.', image: sensorsImg },
     ],
   },
   {
     id: 'predictions',
     title: 'Tech Predictions',
     cards: [
-      { title: 'Personal AI Operating Systems', description: 'Users manage a single AI profile across all devices.', image: placeholder },
-      { title: 'Autonomous Security Layers', description: 'Threat detection moves from reactive to predictive models.', image: placeholder },
-      { title: 'Synthetic Research Assistants', description: 'Lab teams accelerate discovery via model-driven workflows.', image: placeholder },
+      { title: 'Personal AI Operating Systems', description: 'Users manage a single AI profile across all devices.', image: osImg },
+      { title: 'Autonomous Security Layers', description: 'Threat detection moves from reactive to predictive models.', image: securityImg },
+      { title: 'Synthetic Research Assistants', description: 'Lab teams accelerate discovery via model-driven workflows.', image: researchImg },
     ],
   },
 ]

@@ -183,16 +183,16 @@ function TechSection({ section, sectionIndex }) {
         initial={{ opacity: 0, x: -20 }}
         animate={inView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        className="flex items-center gap-3 mb-6"
+        className="flex items-center gap-3 mb-6 justify-center mx-auto"
       >
         <span className="flex items-center justify-center w-9 h-9 rounded-xl
           bg-gradient-to-br from-cyan-500/30 to-violet-500/20 border border-cyan-500/30">
           <Icon size={16} className="text-cyan-400" />
         </span>
-        <h2 className="text-xl font-bold text-white font-['Syne',sans-serif] tracking-tight">
+        <h2 className="text-xl font-bold text-white font-['Syne',sans-serif] tracking-tight text-center">
           {section.title}
         </h2>
-        <div className="flex-1 h-px bg-gradient-to-r from-cyan-500/30 to-transparent ml-2" />
+        <div className="hidden sm:block flex-1 h-px bg-gradient-to-r from-cyan-500/30 to-transparent ml-2" />
       </motion.div>
 
       {/* Cards grid */}
@@ -232,8 +232,8 @@ function PredictionTimeline() {
         bg-gradient-to-b from-slate-900/80 to-slate-950/80 backdrop-blur-xl p-8">
 
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-3">
+        <div className="relative mb-8">
+          <div className="flex items-center justify-center gap-3 mx-auto">
             <span className="flex items-center justify-center w-9 h-9 rounded-xl
               bg-gradient-to-br from-violet-500/30 to-cyan-500/20 border border-violet-500/30">
               <Clock size={16} className="text-violet-400" />
@@ -247,8 +247,7 @@ function PredictionTimeline() {
           </div>
 
           {/* Scroll controls */}
-          <div className="hidden sm:flex items-center gap-2">
-            <motion.button
+          <div className="hidden sm:flex items-center gap-2 absolute right-0 top-1/2 -translate-y-1/2">\n            <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.93 }}
               onClick={() => scroll('left')}
@@ -283,7 +282,7 @@ function PredictionTimeline() {
           <div
             ref={scrollRef}
             onScroll={onScroll}
-            className="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-hide"
+            className="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-hide px-1 pr-6"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {predictionTimeline.map((item, i) => (
