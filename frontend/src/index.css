@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  body {
+    @apply bg-slate-100 text-slate-900 antialiased transition-colors duration-300;
+    font-family: Inter, Segoe UI, Roboto, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .dark body {
+    @apply bg-orbit-bg text-slate-100;
+    background-image:
+      radial-gradient(circle at 5% 5%, rgba(85, 182, 255, 0.2), transparent 30%),
+      radial-gradient(circle at 85% 0%, rgba(168, 85, 247, 0.2), transparent 35%);
+  }
+
+  img {
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply rounded-2xl border border-orbit-line bg-orbit-panel p-5 shadow-glass backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-cyan-400/20;
+  }
+
+  .orbit-btn {
+    @apply inline-flex items-center gap-2 rounded-full border border-cyan-300/40 px-5 py-2 text-sm font-semibold transition hover:-translate-y-0.5;
+  }
+
+  .orbit-btn-primary {
+    @apply orbit-btn bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 hover:shadow-lg hover:shadow-cyan-400/30;
+  }
+
+  .orbit-btn-secondary {
+    @apply orbit-btn bg-slate-900/40 text-cyan-200 hover:bg-slate-800/50;
+  }
+
+  .section-shell {
+    @apply mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8;
+  }
+}

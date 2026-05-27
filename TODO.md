@@ -1,7 +1,11 @@
-# Task: Remove duplicate Explore nav item from Navbar.jsx
+# Task: Express ABAC backend
 
-## Steps to complete:
-- [x] Step 1: Edit src/components/Navbar.jsx to replace the duplicate "Explore" button text with a dropdown icon (FaAngleDown).
-- [x] Step 2: Test the navbar by running `npm run dev` and verifying no duplication.
-- [x] Step 3: Mark complete.
+## Steps
+- [x] Step 1: Add Express server + middleware (CORS, JSON)
+- [x] Step 2: Add routes: GET /health and POST /abac/authorize
+- [x] Step 3: Implement starter rule-based ABAC evaluator
+- [x] Step 4: Add npm script to run backend locally (dev:server)
+- [x] Step 5: Install dependencies and test endpoints
+
+
 
