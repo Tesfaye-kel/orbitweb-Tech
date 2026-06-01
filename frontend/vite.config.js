@@ -1,8 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
-  base: '/orbitweb-Tech/', 
+export default defineConfig(({ command }) => {
+  return {
+    plugins: [react()],
+    // If we are running locally with 'npm run dev', use root path '/'
+    // If we are building for production, use the GitHub Pages repository path
+    base: command === 'serve' ? '/' : '/orbitweb-Tech/',
+  }
 })
