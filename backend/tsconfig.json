@@ -10,6 +10,8 @@
     "types": ["node"],
     "noEmit": true
   },
-  "include": ["./**/*.js", "./**/*.ts"]
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules"]
 }
+
 
